@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vidigest – AI settings</title>
+  <style>
+    body {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width: 560px;
+      margin: 40px auto;
+      padding: 0 16px;
+      color: #222;
+    }
+    h2 { margin-bottom: 4px; }
+    .subtitle { color: #666; font-size: 13px; margin-top: 0; }
+    label { display: block; margin: 14px 0 6px; font-weight: 600; font-size: 14px; }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .field.hidden { display: none; }
+    .hint { font-size: 12px; color: #666; margin-top: 4px; }
+    .provider-help {
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+    .provider-help code { background: #e5e7eb; padding: 1px 4px; border-radius: 3px; }
+    .notice {
+      background: #fff7ed;
+      border-left: 3px solid #f59e0b;
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #444;
+      margin-top: 18px;
+    }
+    button {
+      margin-top: 18px;
+      padding: 9px 18px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:disabled { background: #999; cursor: default; }
+    footer { margin-top: 20px; font-size: 12px; }
+    h3 { margin: 28px 0 0; font-size: 16px; border-top: 1px solid #e5e7eb; padding-top: 18px; }
+    a { color: #4f46e5; }
+    /* Toast */
+    #toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      max-width: 90vw;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.ok { background: #16a34a; }
+    #toast.ko { background: #dc2626; }
+  </style>
+</head>
+<body>
+  <h2 data-i18n="optTitle">AI settings</h2>
+  <p class="subtitle" data-i18n="optSubtitle"></p>
+
+  <label for="provider" data-i18n="optProvider">AI provider</label>
+  <select id="provider">
+    <option value="gemini" data-i18n="optGemini">Google Gemini</option>
+    <option value="mistral" data-i18n="optMistral">Mistral AI</option>
+    <option value="infomaniak" data-i18n="optInfomaniak">Infomaniak AI Services</option>
+    <option value="ollama" data-i18n="optOllama">Ollama</option>
+    <option value="custom" data-i18n="optCustom">OpenAI-compatible</option>
+  </select>
+
+  <div id="provider-help" class="provider-help"></div>
+
+  <div class="field" id="field-endpoint">
+    <label for="endpoint" data-i18n="optEndpoint">Endpoint URL</label>
+    <input type="url" id="endpoint" placeholder="https://…/v1/chat/completions" />
+  </div>
+
+  <div class="field" id="field-apikey">
+    <label for="apiKey"><span data-i18n="optApiKey">API key</span>
+      <span id="apikey-optional" style="font-weight:400;color:#888;" data-i18n="optOptional">(optional)</span></label>
+    <input type="password" id="apiKey" autocomplete="off" />
+  </div>
+
+  <div class="field">
+    <label for="model" data-i18n="optModel">Model</label>
+    <input type="text" id="model" />
+    <div class="hint" data-i18n="optModelHint"></div>
+  </div>
+
+  <button id="save" data-i18n="optSave">Save and test</button>
+
+  <div class="notice" data-i18n-html="optNotice"></div>
+
+  <h3 data-i18n="optSummarySection">Summary</h3>
+  <label for="summaryLanguage" data-i18n="optSummaryLang">Summary language</label>
+  <select id="summaryLanguage"></select>
+  <div class="hint" data-i18n="optSummaryLangHint"></div>
+
+  <footer><a id="privacy-link" href="privacy.html" target="_blank" data-i18n="optPrivacyLink">Privacy policy</a></footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="providers.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

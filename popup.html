@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vidigest</title>
+  <style>
+    body {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      width: 520px;
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
+      color: #f1f1f1;
+    }
+    .wrap { padding: 16px; }
+    h1 {
+      font-size: 15px;
+      margin: 0 0 12px 0;
+    }
+    nav {
+      display: flex;
+      border-bottom: 1px solid #333;
+    }
+    nav button {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #aaa;
+      padding: 10px 0;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    nav button.active {
+      color: #fff;
+      border-bottom-color: #3ea6ff;
+      font-weight: 600;
+    }
+    .view { display: none; }
+    .view.active { display: block; }
+    button.action {
+      width: 100%;
+      padding: 10px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    #download { background: #cc0000; }
+    #summarize { background: #1a73e8; }
+    button.action:disabled {
+      background: #555;
+      cursor: default;
+    }
+    #status {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #aaa;
+      min-height: 14px;
+    }
+    #result {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-height: 560px;
+      overflow-y: auto;
+    }
+    /* Rendu du Markdown converti (titres, gras, listes) */
+    #result h3, #result h4, #result h5, #result h6,
+    .history-item .summary h3, .history-item .summary h4,
+    .history-item .summary h5, .history-item .summary h6 {
+      font-size: 13px;
+      margin: 10px 0 4px 0;
+      color: #fff;
+    }
+    #result p, .history-item .summary p {
+      margin: 6px 0;
+    }
+    #result ul, .history-item .summary ul {
+      margin: 4px 0 8px 0;
+      padding-left: 18px;
+    }
+    #result li, .history-item .summary li {
+      margin-bottom: 4px;
+    }
+    #result strong, .history-item .summary strong {
+      color: #fff;
+    }
+    #result p.tldr, .history-item .summary p.tldr {
+      background: #1a2733;
+      border-left: 3px solid #3ea6ff;
+      padding: 8px 10px;
+      border-radius: 4px;
+      margin: 0 0 10px 0;
+      font-size: 13px;
+    }
+    .md-download-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #3ea6ff;
+      cursor: pointer;
+    }
+    a {
+      color: #3ea6ff;
+      text-decoration: none;
+    }
+    footer {
+      margin-top: 12px;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    /* Historique */
+    #history-list {
+      max-height: 560px;
+      overflow-y: auto;
+    }
+    .history-item {
+      border-bottom: 1px solid #2a2a2a;
+      padding: 10px 0;
+    }
+    .history-item .meta {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .history-item .title {
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .history-item .summary {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #ddd;
+      display: none;
+    }
+    .history-item .summary.expanded { display: block; }
+    .history-item .toggle {
+      font-size: 11px;
+      cursor: pointer;
+      color: #3ea6ff;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    #empty-history {
+      color: #888;
+      font-size: 13px;
+      text-align: center;
+      padding: 20px 0;
+    }
+    #clear-history {
+      margin-top: 10px;
+      background: #444;
+      color: #ddd;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Sélecteur de niveau de résumé */
+    .levels {
+      display: flex;
+      gap: 0;
+      margin-bottom: 8px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .levels label {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      padding: 7px 0;
+      cursor: pointer;
+      color: #aaa;
+      background: #1a1a1a;
+      border-right: 1px solid #333;
+    }
+    .levels label:last-child { border-right: none; }
+    .levels input { display: none; }
+    .levels input:checked + span { color: #fff; font-weight: 600; }
+    .levels label:has(input:checked) { background: #1a73e8; }
+    .levels-caption { font-size: 11px; color: #888; margin: 4px 0 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Vidigest</h1>
+    <nav>
+      <button id="tab-main" class="active" data-i18n="tabSummarize">Summarize</button>
+      <button id="tab-history" data-i18n="tabHistory">History</button>
+    </nav>
+
+    <div id="view-main" class="view active" style="margin-top:12px;">
+      <button class="action" id="download" data-i18n="btnDownload">Download transcript (.txt)</button>
+      <div class="levels-caption" data-i18n="levelCaption">Summary length</div>
+      <div class="levels">
+        <label><input type="radio" name="level" value="court" /><span data-i18n="levelShort">Short</span></label>
+        <label><input type="radio" name="level" value="moyen" checked /><span data-i18n="levelMedium">Medium</span></label>
+        <label><input type="radio" name="level" value="long" /><span data-i18n="levelLong">Long</span></label>
+      </div>
+      <button class="action" id="summarize" data-i18n="btnSummarizeGeneric">Summarize with AI</button>
+      <div id="status"></div>
+      <div id="result"></div>
+      <footer><a href="#" id="options-link" data-i18n="linkConfigure">Configure AI</a></footer>
+    </div>
+
+    <div id="view-history" class="view" style="margin-top:12px;">
+      <div id="history-list"></div>
+      <div id="empty-history" style="display:none;" data-i18n="historyEmpty">No saved summaries yet.</div>
+      <button id="clear-history" data-i18n="btnClearHistory">Clear history</button>
+    </div>
+  </div>
+  <script src="providers.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
