@@ -1,0 +1,256 @@
+{
+  "extName": {
+    "message": "Vidigest"
+  },
+  "extDescription": {
+    "message": "Télécharge le transcript d'une vidéo et le résume avec l'IA de ton choix (Gemini, Mistral, Infomaniak, Ollama…). Fonctionne avec YouTube."
+  },
+  "actionTitle": {
+    "message": "Vidigest : transcript et résumé de la vidéo"
+  },
+  "tabSummarize": {
+    "message": "Résumer"
+  },
+  "tabHistory": {
+    "message": "Historique"
+  },
+  "btnDownload": {
+    "message": "Télécharger le transcript (.txt)"
+  },
+  "levelCaption": {
+    "message": "Niveau de résumé"
+  },
+  "levelShort": {
+    "message": "Court"
+  },
+  "levelMedium": {
+    "message": "Moyen"
+  },
+  "levelLong": {
+    "message": "Long"
+  },
+  "btnSummarizeGeneric": {
+    "message": "Résumer avec l'IA"
+  },
+  "btnSummarizeWith": {
+    "message": "Résumer avec $PROVIDER$",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkConfigure": {
+    "message": "Configurer l'IA"
+  },
+  "historyEmpty": {
+    "message": "Aucun résumé enregistré pour l'instant."
+  },
+  "btnClearHistory": {
+    "message": "Vider l'historique"
+  },
+  "errNotVideoPage": {
+    "message": "Ouvre d'abord une page vidéo YouTube (youtube.com/watch?v=...)."
+  },
+  "statusFetching": {
+    "message": "Récupération du transcript..."
+  },
+  "statusDownloadStarted": {
+    "message": "Téléchargement lancé ✓"
+  },
+  "errorPrefix": {
+    "message": "Erreur : $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusNotConfigured": {
+    "message": "IA non configurée, ouverture des options..."
+  },
+  "statusSummarizing": {
+    "message": "Résumé en cours ($PROVIDER$)...",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkDownloadMd": {
+    "message": "⬇ Télécharger le résumé (.md)"
+  },
+  "toggleShow": {
+    "message": "Afficher le résumé"
+  },
+  "toggleHide": {
+    "message": "Masquer le résumé"
+  },
+  "fileSuffixSummary": {
+    "message": "résumé.md"
+  },
+  "errNoVideo": {
+    "message": "Aucune vidéo détectée. Ouvre une page YouTube du type youtube.com/watch?v=..."
+  },
+  "errPanelOpen": {
+    "message": "Impossible d'ouvrir le panneau de transcription automatiquement. Ouvre-le manuellement (« ... » sous la vidéo → « Afficher la transcription ») puis réessaie."
+  },
+  "errPanelEmpty": {
+    "message": "Le panneau de transcription est ouvert mais son contenu n'a pas pu être lu (YouTube a peut-être changé la structure de sa page)."
+  },
+  "providerOllama": {
+    "message": "Ollama (local)"
+  },
+  "providerCustom": {
+    "message": "IA personnalisée"
+  },
+  "errModel": {
+    "message": "Indique un nom de modèle."
+  },
+  "errKey": {
+    "message": "Saisis une clé API."
+  },
+  "errEndpoint": {
+    "message": "Indique l'URL de l'endpoint /chat/completions."
+  },
+  "errProductId": {
+    "message": "Remplace {product_id} dans l'URL par l'identifiant de ton produit AI Services."
+  },
+  "errUrlProtocol": {
+    "message": "L'URL doit commencer par http:// ou https://."
+  },
+  "errUrlInvalid": {
+    "message": "L'URL de l'endpoint n'est pas valide."
+  },
+  "errOllamaNetwork": {
+    "message": "Impossible de joindre le serveur local. Vérifie qu'Ollama tourne et qu'il autorise l'extension (OLLAMA_ORIGINS=\"moz-extension://*\")."
+  },
+  "errNetwork": {
+    "message": "Impossible de joindre le fournisseur d'IA (connexion réseau ou permission refusée)."
+  },
+  "errNoText": {
+    "message": "$PROVIDER$ n'a renvoyé aucun texte.",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "optPageTitle": {
+    "message": "Vidigest – Configuration de l'IA"
+  },
+  "optTitle": {
+    "message": "Configuration de l'IA"
+  },
+  "optSubtitle": {
+    "message": "Choisis le service qui générera les résumés. Le téléchargement du transcript (.txt) fonctionne sans configuration."
+  },
+  "optProvider": {
+    "message": "Fournisseur d'IA"
+  },
+  "optGemini": {
+    "message": "Google Gemini"
+  },
+  "optMistral": {
+    "message": "Mistral AI (France)"
+  },
+  "optInfomaniak": {
+    "message": "Infomaniak AI Services (Suisse)"
+  },
+  "optOllama": {
+    "message": "Ollama (local, sur ton ordinateur)"
+  },
+  "optCustom": {
+    "message": "Autre service compatible OpenAI"
+  },
+  "optEndpoint": {
+    "message": "URL de l'endpoint /chat/completions"
+  },
+  "optApiKey": {
+    "message": "Clé API"
+  },
+  "optOptional": {
+    "message": "(facultative)"
+  },
+  "optModel": {
+    "message": "Modèle"
+  },
+  "optModelHint": {
+    "message": "Laisse la valeur proposée si tu ne sais pas quoi mettre."
+  },
+  "optSave": {
+    "message": "Enregistrer et tester"
+  },
+  "optTesting": {
+    "message": "Test en cours..."
+  },
+  "optSummarySection": {
+    "message": "Résumé"
+  },
+  "optSummaryLang": {
+    "message": "Langue du résumé"
+  },
+  "optSummaryLangHint": {
+    "message": "Enregistré automatiquement."
+  },
+  "langBrowser": {
+    "message": "Langue du navigateur"
+  },
+  "langVideo": {
+    "message": "Même langue que la vidéo"
+  },
+  "toastLangSaved": {
+    "message": "✓ Langue du résumé enregistrée"
+  },
+  "optNotice": {
+    "message": "<strong>Important :</strong> Vidigest n'a pas de serveur. Quand tu cliques sur « Résumer », le transcript de la vidéo est envoyé directement au fournisseur choisi ci-dessus, avec ta propre clé. Tu es responsable du respect de ses conditions d'utilisation et de sa facturation. Par exemple, les conditions de l'API Gemini réservent aux services payants les usages destinés aux utilisateurs de l'Espace économique européen, de la Suisse et du Royaume-Uni.<br>La clé est stockée uniquement dans ton navigateur (non synchronisée, non chiffrée)."
+  },
+  "optPrivacyLink": {
+    "message": "Politique de confidentialité"
+  },
+  "privacyFile": {
+    "message": "privacy.fr.html"
+  },
+  "helpGemini": {
+    "message": "Crée une clé sur <a href=\"https://aistudio.google.com/apikey\" target=\"_blank\">aistudio.google.com</a>. Pour un usage depuis l'Europe, les conditions de Google imposent un projet avec facturation activée."
+  },
+  "helpMistral": {
+    "message": "Crée une clé sur <a href=\"https://console.mistral.ai/api-keys\" target=\"_blank\">console.mistral.ai</a>. Service français, facturé à l'usage (une offre d'essai gratuite existe)."
+  },
+  "helpInfomaniak": {
+    "message": "Active <strong>AI Services</strong> dans le <a href=\"https://manager.infomaniak.com\" target=\"_blank\">Manager Infomaniak</a>, crée un token API, puis remplace <code>{product_id}</code> dans l'URL par l'identifiant de ton produit. Hébergé en Suisse."
+  },
+  "helpOllama": {
+    "message": "Installe <a href=\"https://ollama.com\" target=\"_blank\">Ollama</a>, télécharge un modèle (<code>ollama pull llama3.2</code>) et lance-le en autorisant l'extension : <code>OLLAMA_ORIGINS=\"moz-extension://*\" ollama serve</code>. Rien ne quitte ton ordinateur, aucune clé n'est nécessaire."
+  },
+  "helpCustom": {
+    "message": "N'importe quel service compatible avec l'API OpenAI (OpenAI, LM Studio, vLLM, OpenRouter…). Indique l'URL complète se terminant par <code>/chat/completions</code>. Firefox te demandera l'autorisation d'accéder à ce site."
+  },
+  "toastPermissionDenied": {
+    "message": "✗ Permission refusée : l'extension ne peut pas contacter ce service."
+  },
+  "toastSuccess": {
+    "message": "✓ $PROVIDER$ fonctionne, configuration enregistrée !",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "toastTestFailed": {
+    "message": "✗ Échec du test : $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "toastError": {
+    "message": "✗ $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1"
+      }
+    }
+  }
+}

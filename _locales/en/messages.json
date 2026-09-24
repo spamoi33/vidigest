@@ -1,0 +1,256 @@
+{
+  "extName": {
+    "message": "Vidigest"
+  },
+  "extDescription": {
+    "message": "Download a video's transcript and summarize it with the AI of your choice (Gemini, Mistral, Infomaniak, Ollama…). Works with YouTube."
+  },
+  "actionTitle": {
+    "message": "Vidigest: video transcript and summary"
+  },
+  "tabSummarize": {
+    "message": "Summarize"
+  },
+  "tabHistory": {
+    "message": "History"
+  },
+  "btnDownload": {
+    "message": "Download transcript (.txt)"
+  },
+  "levelCaption": {
+    "message": "Summary length"
+  },
+  "levelShort": {
+    "message": "Short"
+  },
+  "levelMedium": {
+    "message": "Medium"
+  },
+  "levelLong": {
+    "message": "Long"
+  },
+  "btnSummarizeGeneric": {
+    "message": "Summarize with AI"
+  },
+  "btnSummarizeWith": {
+    "message": "Summarize with $PROVIDER$",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkConfigure": {
+    "message": "Configure AI"
+  },
+  "historyEmpty": {
+    "message": "No saved summaries yet."
+  },
+  "btnClearHistory": {
+    "message": "Clear history"
+  },
+  "errNotVideoPage": {
+    "message": "Open a YouTube video page first (youtube.com/watch?v=...)."
+  },
+  "statusFetching": {
+    "message": "Fetching transcript..."
+  },
+  "statusDownloadStarted": {
+    "message": "Download started ✓"
+  },
+  "errorPrefix": {
+    "message": "Error: $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1"
+      }
+    }
+  },
+  "statusNotConfigured": {
+    "message": "AI not configured, opening settings..."
+  },
+  "statusSummarizing": {
+    "message": "Summarizing ($PROVIDER$)...",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkDownloadMd": {
+    "message": "⬇ Download summary (.md)"
+  },
+  "toggleShow": {
+    "message": "Show summary"
+  },
+  "toggleHide": {
+    "message": "Hide summary"
+  },
+  "fileSuffixSummary": {
+    "message": "summary.md"
+  },
+  "errNoVideo": {
+    "message": "No video detected. Open a YouTube page like youtube.com/watch?v=..."
+  },
+  "errPanelOpen": {
+    "message": "Couldn't open the transcript panel automatically. Open it manually (\"...\" under the video → \"Show transcript\") and try again."
+  },
+  "errPanelEmpty": {
+    "message": "The transcript panel is open but its content couldn't be read (YouTube may have changed its page structure)."
+  },
+  "providerOllama": {
+    "message": "Ollama (local)"
+  },
+  "providerCustom": {
+    "message": "Custom AI"
+  },
+  "errModel": {
+    "message": "Enter a model name."
+  },
+  "errKey": {
+    "message": "Enter an API key."
+  },
+  "errEndpoint": {
+    "message": "Enter the /chat/completions endpoint URL."
+  },
+  "errProductId": {
+    "message": "Replace {product_id} in the URL with your AI Services product ID."
+  },
+  "errUrlProtocol": {
+    "message": "The URL must start with http:// or https://."
+  },
+  "errUrlInvalid": {
+    "message": "The endpoint URL isn't valid."
+  },
+  "errOllamaNetwork": {
+    "message": "Can't reach the local server. Check that Ollama is running and allows the extension (OLLAMA_ORIGINS=\"moz-extension://*\")."
+  },
+  "errNetwork": {
+    "message": "Can't reach the AI provider (network issue or permission denied)."
+  },
+  "errNoText": {
+    "message": "$PROVIDER$ returned no text.",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "optPageTitle": {
+    "message": "Vidigest – AI settings"
+  },
+  "optTitle": {
+    "message": "AI settings"
+  },
+  "optSubtitle": {
+    "message": "Choose the service that will generate summaries. Downloading the transcript (.txt) works without any setup."
+  },
+  "optProvider": {
+    "message": "AI provider"
+  },
+  "optGemini": {
+    "message": "Google Gemini"
+  },
+  "optMistral": {
+    "message": "Mistral AI (France)"
+  },
+  "optInfomaniak": {
+    "message": "Infomaniak AI Services (Switzerland)"
+  },
+  "optOllama": {
+    "message": "Ollama (local, on your computer)"
+  },
+  "optCustom": {
+    "message": "Other OpenAI-compatible service"
+  },
+  "optEndpoint": {
+    "message": "Endpoint URL (/chat/completions)"
+  },
+  "optApiKey": {
+    "message": "API key"
+  },
+  "optOptional": {
+    "message": "(optional)"
+  },
+  "optModel": {
+    "message": "Model"
+  },
+  "optModelHint": {
+    "message": "Keep the suggested value if you're not sure."
+  },
+  "optSave": {
+    "message": "Save and test"
+  },
+  "optTesting": {
+    "message": "Testing..."
+  },
+  "optSummarySection": {
+    "message": "Summary"
+  },
+  "optSummaryLang": {
+    "message": "Summary language"
+  },
+  "optSummaryLangHint": {
+    "message": "Saved automatically."
+  },
+  "langBrowser": {
+    "message": "Browser language"
+  },
+  "langVideo": {
+    "message": "Same language as the video"
+  },
+  "toastLangSaved": {
+    "message": "✓ Summary language saved"
+  },
+  "optNotice": {
+    "message": "<strong>Important:</strong> Vidigest has no server. When you click “Summarize”, the video transcript is sent directly to the provider selected above, using your own key. You are responsible for complying with its terms of use and for its billing. For example, the Gemini API terms restrict use for users in the European Economic Area, Switzerland and the United Kingdom to paid services.<br>Your key is stored only in your browser (not synced, not encrypted)."
+  },
+  "optPrivacyLink": {
+    "message": "Privacy policy"
+  },
+  "privacyFile": {
+    "message": "privacy.html"
+  },
+  "helpGemini": {
+    "message": "Create a key at <a href=\"https://aistudio.google.com/apikey\" target=\"_blank\">aistudio.google.com</a>. For use from Europe, Google's terms require a project with billing enabled."
+  },
+  "helpMistral": {
+    "message": "Create a key at <a href=\"https://console.mistral.ai/api-keys\" target=\"_blank\">console.mistral.ai</a>. French provider, pay-as-you-go (a free trial is available)."
+  },
+  "helpInfomaniak": {
+    "message": "Enable <strong>AI Services</strong> in the <a href=\"https://manager.infomaniak.com\" target=\"_blank\">Infomaniak Manager</a>, create an API token, then replace <code>{product_id}</code> in the URL with your product ID. Hosted in Switzerland."
+  },
+  "helpOllama": {
+    "message": "Install <a href=\"https://ollama.com\" target=\"_blank\">Ollama</a>, download a model (<code>ollama pull llama3.2</code>) and start it while allowing the extension: <code>OLLAMA_ORIGINS=\"moz-extension://*\" ollama serve</code>. Nothing leaves your computer and no key is needed."
+  },
+  "helpCustom": {
+    "message": "Any service compatible with the OpenAI API (OpenAI, LM Studio, vLLM, OpenRouter…). Enter the full URL ending with <code>/chat/completions</code>. Firefox will ask for permission to access that site."
+  },
+  "toastPermissionDenied": {
+    "message": "✗ Permission denied: the extension can't contact this service."
+  },
+  "toastSuccess": {
+    "message": "✓ $PROVIDER$ works, settings saved!",
+    "placeholders": {
+      "provider": {
+        "content": "$1"
+      }
+    }
+  },
+  "toastTestFailed": {
+    "message": "✗ Test failed: $DETAIL$",
+    "placeholders": {
+      "detail": {
+        "content": "$1"
+      }
+    }
+  },
+  "toastError": {
+    "message": "✗ $MESSAGE$",
+    "placeholders": {
+      "message": {
+        "content": "$1"
+      }
+    }
+  }
+}
