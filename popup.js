@@ -123,6 +123,45 @@ function markdownToHtml(md) {
   return html;
 }
 
+const TLDR_PREFIX = /^(?:\*\*)?TL;DR\s*:?\s*(?:\*\*)?\s*:?\s*/i;
+
+// Le paragraphe "TL;DR" seul, jusqu'à la ligne vide, la liste ou le titre
+// suivants ; null si l'IA n'en a pas mis.
+function tldrMarkdown(md) {
+  const lines = md.split(/\r?\n/).map((l) => l.trim());
+  const start = lines.findIndex((l) => TLDR_PREFIX.test(l));
+  if (start === -1) return null;
+  const end = lines.findIndex((l, i) => i > start && (!l || /^([*-]|#{1,6})\s/.test(l)));
+  return lines.slice(start, end === -1 ? undefined : end).join("\n");
+}
+
+// Même découpage par ligne, mais en texte à lire : sans symboles Markdown ni
+// préfixe "TL;DR" (que les voix épellent). Une ligne = une pause.
+function markdownToSpeech(md) {
+  return md
+    .split(/\r?\n/)
+    .map((line) =>
+      line
+        .trim()
+        .replace(/^#{1,6}\s+/, "")
+        .replace(/^[*-]\s+/, "")
+        .replace(TLDR_PREFIX, "")
+        .replace(/[*`]/g, "")
+        .trim()
+    )
+    .filter(Boolean);
+}
+
+// Langue réelle du résumé, pour choisir la voix : le réglage "même langue
+// que la vidéo" ne la donne pas, et l'historique ne la garde pas.
+async function detectTextLanguage(text) {
+  try {
+    const { languages } = await browser.i18n.detectLanguage(text);
+    if (languages && languages.length && languages[0].language !== "und") return languages[0].language;
+  } catch (e) {}
+  return uiLanguage();
+}
+
 function buildSafeFilename(title, videoId, suffix) {
   const safeTitle = (title || "")
     .replace(/[\\/:*?"<>|]/g, "")
@@ -197,6 +236,85 @@ document.addEventListener("DOMContentLoaded", () => {
   tabMain.addEventListener("click", () => showTab("main"));
   tabHistory.addEventListener("click", () => showTab("history"));
 
+  // --- Lecture à voix haute ---
+  // Elle se fait dans l'onglet actif s'il s'agit de YouTube (content script),
+  // où elle continue popup fermée ; sinon dans la popup elle-même. Chaque
+  // résumé est identifié par son timestamp d'historique.
+  const stopSpeechBtn = document.getElementById("stop-speech");
+  const speechError = document.getElementById("speech-error"); // visible dans les deux onglets
+  let speakingId = null;
+
+  function sendToTab(tabId, message) {
+    return browser.tabs.sendMessage(tabId, message).catch(() => null); // pas de content script
+  }
+
+  async function sendToYouTubeTabs(message) {
+    const tabs = await browser.tabs.query({ url: "https://www.youtube.com/*" });
+    return Promise.all(tabs.map((tab) => sendToTab(tab.id, message)));
+  }
+
+  function setSpeaking(id) {
+    speakingId = id;
+    stopSpeechBtn.hidden = id === null;
+    document.querySelectorAll(".listen-link").forEach((link) => {
+      link.textContent = id !== null && link.dataset.id === String(id) ? t("linkStopSpeech") : t("linkListen");
+    });
+  }
+
+  async function stopSpeech() {
+    Speech.stop();
+    await sendToYouTubeTabs({ action: "stopSpeech" });
+    setSpeaking(null);
+  }
+
+  async function startSpeech(summary, id) {
+    speechError.hidden = true;
+    await stopSpeech();
+    const chunks = markdownToSpeech(summary);
+    const lang = await detectTextLanguage(chunks.join(" "));
+    const reading = { chunks, lang, id, ...(await loadSpeechSettings()) };
+
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+    let res = tab ? await sendToTab(tab.id, { action: "speak", ...reading }) : null;
+    if (!res) res = Speech.speak(reading, () => setSpeaking(null));
+
+    if (res.ok) {
+      setSpeaking(id);
+    } else {
+      const detail = res.reason === "noVoice" ? t("errNoVoice", [languageName(lang)]) : t("errSpeechUnsupported");
+      speechError.textContent = t("errorPrefix", [detail]);
+      speechError.hidden = false;
+    }
+  }
+
+  // null si le navigateur ne sait pas lire à voix haute : pas de lien du tout.
+  function createListenLink(summary, id) {
+    if (!Speech.supported()) return null;
+    const link = document.createElement("a");
+    link.href = "#";
+    link.className = "listen-link";
+    link.dataset.id = id;
+    link.textContent = id === speakingId ? t("linkStopSpeech") : t("linkListen");
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (id === speakingId) stopSpeech();
+      else startSpeech(summary, id);
+    });
+    return link;
+  }
+
+  stopSpeechBtn.addEventListener("click", stopSpeech);
+
+  browser.runtime.onMessage.addListener((message) => {
+    if (message && message.action === "speechEnded" && message.id === speakingId) setSpeaking(null);
+  });
+
+  // Une lecture lancée avant l'ouverture de la popup continue peut-être dans un onglet YouTube.
+  sendToYouTubeTabs({ action: "speechStatus" }).then((statuses) => {
+    const playing = statuses.find((s) => s && s.speaking);
+    if (playing) setSpeaking(playing.id);
+  });
+
   // --- Transcript ---
   async function getTranscriptFromActiveTab() {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
@@ -258,7 +376,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       result.appendChild(mdLink);
 
-      await saveToHistory({ title, videoId, summary, level, provider: cfg.label, timestamp: Date.now() });
+      const timestamp = Date.now();
+      const listenLink = createListenLink(summary, timestamp);
+      if (listenLink) result.appendChild(listenLink);
+
+      await saveToHistory({ title, videoId, summary, level, provider: cfg.label, timestamp });
+
+      const speech = await loadSpeechSettings();
+      if (listenLink && speech.autoPlay) {
+        const toRead = speech.autoPlayScope === "tldr" ? tldrMarkdown(summary) || summary : summary;
+        await startSpeech(toRead, timestamp);
+      }
     } catch (err) {
       status.textContent = t("errorPrefix", [err && err.message ? err.message : String(err)]);
     } finally {
@@ -335,10 +463,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       div.appendChild(mdLink);
 
+      const listenLink = createListenLink(item.summary, item.timestamp);
+      if (listenLink) {
+        listenLink.classList.add("summary");
+        listenLink.style.display = "none";
+        div.appendChild(listenLink);
+      }
+
       toggle.addEventListener("click", () => {
         const isExpanded = summaryEl.classList.toggle("expanded");
         toggle.textContent = isExpanded ? t("toggleHide") : t("toggleShow");
         mdLink.style.display = isExpanded ? "inline-block" : "none";
+        if (listenLink) listenLink.style.display = mdLink.style.display;
       });
 
       historyList.appendChild(div);

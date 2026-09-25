@@ -89,6 +89,26 @@
   "fileSuffixSummary": {
     "message": "résumé.md"
   },
+  "linkListen": {
+    "message": "🔊 Écouter"
+  },
+  "linkStopSpeech": {
+    "message": "⏹ Arrêter"
+  },
+  "btnStopSpeech": {
+    "message": "⏹ Arrêter la lecture"
+  },
+  "errNoVoice": {
+    "message": "Aucune voix n'est installée pour cette langue ($LANGUAGE$). Tu peux en ajouter une dans les réglages de synthèse vocale de ton système.",
+    "placeholders": {
+      "language": {
+        "content": "$1"
+      }
+    }
+  },
+  "errSpeechUnsupported": {
+    "message": "La lecture à voix haute n'est pas disponible dans ce navigateur."
+  },
   "errNoVideo": {
     "message": "Aucune vidéo détectée. Ouvre une page YouTube du type youtube.com/watch?v=..."
   },
@@ -201,6 +221,51 @@
   },
   "toastLangSaved": {
     "message": "✓ Langue du résumé enregistrée"
+  },
+  "optSpeechSection": {
+    "message": "Lecture à voix haute"
+  },
+  "optAutoPlay": {
+    "message": "Lire le résumé à voix haute dès qu'il est prêt"
+  },
+  "optAutoPlayTldr": {
+    "message": "Uniquement le résumé court (TL;DR)"
+  },
+  "optAutoPlayFull": {
+    "message": "Tout le résumé"
+  },
+  "optVoice": {
+    "message": "Voix"
+  },
+  "optVoiceAuto": {
+    "message": "Automatique (selon la langue du résumé)"
+  },
+  "optVoiceHint": {
+    "message": "Utilisée pour les résumés dans sa langue ; pour les autres langues, c'est la voix par défaut du système. Tu peux installer d'autres voix dans les réglages de synthèse vocale de ton système."
+  },
+  "optVoiceWindowsHint": {
+    "message": "Les voix naturelles de Windows 11 (Denise, Henri…) n'apparaissent pas directement dans Firefox : <a href=\"https://github.com/spamoi33/vidigest#voix-naturelles-sous-windows-11\" target=\"_blank\">voir comment les ajouter</a>."
+  },
+  "optRate": {
+    "message": "Vitesse"
+  },
+  "optPitch": {
+    "message": "Hauteur de la voix"
+  },
+  "optVolume": {
+    "message": "Volume"
+  },
+  "optSpeechTest": {
+    "message": "▶ Tester"
+  },
+  "optSpeechReset": {
+    "message": "Réinitialiser"
+  },
+  "speechSample": {
+    "message": "Bonjour ! Voici comment Vidigest lira tes résumés."
+  },
+  "toastSpeechSaved": {
+    "message": "✓ Réglages de lecture enregistrés"
   },
   "optNotice": {
     "message": "<strong>Important :</strong> Vidigest n'a pas de serveur. Quand tu cliques sur « Résumer », le transcript de la vidéo est envoyé directement au fournisseur choisi ci-dessus, avec ta propre clé. Tu es responsable du respect de ses conditions d'utilisation et de sa facturation. Par exemple, les conditions de l'API Gemini réservent aux services payants les usages destinés aux utilisateurs de l'Espace économique européen, de la Suisse et du Royaume-Uni.<br>La clé est stockée uniquement dans ton navigateur (non synchronisée, non chiffrée)."

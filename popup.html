@@ -13,9 +13,28 @@
       color: #f1f1f1;
     }
     .wrap { padding: 16px; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
     h1 {
       font-size: 15px;
-      margin: 0 0 12px 0;
+      margin: 0;
+    }
+    #stop-speech {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #3ea6ff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    #speech-error {
+      font-size: 12px;
+      color: #aaa;
+      margin: -4px 0 10px 0;
     }
     nav {
       display: flex;
@@ -97,13 +116,14 @@
       margin: 0 0 10px 0;
       font-size: 13px;
     }
-    .md-download-link {
+    .md-download-link, .listen-link {
       display: inline-block;
       margin-top: 10px;
       font-size: 12px;
       color: #3ea6ff;
       cursor: pointer;
     }
+    .listen-link { margin-left: 14px; }
     a {
       color: #3ea6ff;
       text-decoration: none;
@@ -194,7 +214,11 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Vidigest</h1>
+    <header>
+      <h1>Vidigest</h1>
+      <button id="stop-speech" hidden data-i18n="btnStopSpeech">⏹ Stop reading</button>
+    </header>
+    <div id="speech-error" hidden></div>
     <nav>
       <button id="tab-main" class="active" data-i18n="tabSummarize">Summarize</button>
       <button id="tab-history" data-i18n="tabHistory">History</button>
@@ -221,6 +245,7 @@
     </div>
   </div>
   <script src="providers.js"></script>
+  <script src="speech.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

@@ -22,6 +22,13 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+    input[type="range"] { padding: 0; border: none; }
+    label.choice { display: flex; align-items: center; gap: 8px; font-weight: 400; }
+    label.choice input { width: auto; margin: 0; }
+    .suboptions { margin-left: 26px; }
+    .suboptions label.choice { margin: 6px 0; }
+    .suboptions.disabled { opacity: 0.5; }
+    label .value { font-weight: 400; color: #666; }
     .field.hidden { display: none; }
     .hint { font-size: 12px; color: #666; margin-top: 4px; }
     .provider-help {
@@ -54,6 +61,7 @@
       cursor: pointer;
     }
     button:disabled { background: #999; cursor: default; }
+    button.secondary { background: #e5e7eb; color: #222; margin-left: 8px; }
     footer { margin-top: 20px; font-size: 12px; }
     h3 { margin: 28px 0 0; font-size: 16px; border-top: 1px solid #e5e7eb; padding-top: 18px; }
     a { color: #4f46e5; }
@@ -120,11 +128,36 @@
   <select id="summaryLanguage"></select>
   <div class="hint" data-i18n="optSummaryLangHint"></div>
 
+  <section id="speech-section">
+    <h3 data-i18n="optSpeechSection">Read aloud</h3>
+    <label class="choice"><input type="checkbox" id="autoPlay" /><span data-i18n="optAutoPlay">Read the summary aloud as soon as it's ready</span></label>
+    <div class="suboptions" id="autoPlayScope">
+      <label class="choice"><input type="radio" name="autoPlayScope" value="tldr" /><span data-i18n="optAutoPlayTldr">Only the short summary (TL;DR)</span></label>
+      <label class="choice"><input type="radio" name="autoPlayScope" value="full" /><span data-i18n="optAutoPlayFull">The whole summary</span></label>
+    </div>
+    <label for="voice" data-i18n="optVoice">Voice</label>
+    <select id="voice"></select>
+    <div class="hint" data-i18n="optVoiceHint"></div>
+    <div class="hint" id="voice-windows-hint" hidden data-i18n-html="optVoiceWindowsHint"></div>
+
+    <label for="rate"><span data-i18n="optRate">Speed</span> <span class="value" id="rate-value"></span></label>
+    <input type="range" id="rate" min="0.5" max="2" step="0.1" />
+
+    <label for="pitch"><span data-i18n="optPitch">Pitch</span> <span class="value" id="pitch-value"></span></label>
+    <input type="range" id="pitch" min="0.5" max="1.5" step="0.1" />
+
+    <label for="volume"><span data-i18n="optVolume">Volume</span> <span class="value" id="volume-value"></span></label>
+    <input type="range" id="volume" min="0" max="1" step="0.1" />
+
+    <button id="speech-test" data-i18n="optSpeechTest">▶ Test</button><button id="speech-reset" class="secondary" data-i18n="optSpeechReset">Reset</button>
+  </section>
+
   <footer><a id="privacy-link" href="privacy.html" target="_blank" data-i18n="optPrivacyLink">Privacy policy</a></footer>
 
   <div id="toast" role="status" aria-live="polite"></div>
 
   <script src="providers.js"></script>
+  <script src="speech.js"></script>
   <script src="options.js"></script>
 </body>
 </html>
