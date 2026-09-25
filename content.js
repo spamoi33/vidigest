@@ -205,8 +205,32 @@ async function getTranscriptText() {
   return { text, title, videoId, languageCode: "auto" };
 }
 
+// Lecture à voix haute (voir speech.js). Elle se fait ici plutôt que dans la
+// popup pour continuer quand celle-ci se ferme ; on met la vidéo en pause
+// pour ne pas mélanger les deux voix.
+function speakSummary(message) {
+  const { id } = message;
+  const res = Speech.speak(message, () => {
+    browser.runtime.sendMessage({ action: "speechEnded", id }).catch(() => {}); // popup fermée
+  });
+  if (res.ok) {
+    const video = document.querySelector("#movie_player video");
+    if (video) video.pause();
+  }
+  return res;
+}
+
 browser.runtime.onMessage.addListener((message) => {
-  if (message && message.action === "getTranscript") {
-    return getTranscriptText();
+  if (!message) return;
+  switch (message.action) {
+    case "getTranscript":
+      return getTranscriptText();
+    case "speak":
+      return Promise.resolve(speakSummary(message));
+    case "stopSpeech":
+      Speech.stop();
+      return Promise.resolve(true);
+    case "speechStatus":
+      return Promise.resolve(Speech.status());
   }
 });

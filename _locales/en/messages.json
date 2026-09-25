@@ -89,6 +89,26 @@
   "fileSuffixSummary": {
     "message": "summary.md"
   },
+  "linkListen": {
+    "message": "🔊 Listen"
+  },
+  "linkStopSpeech": {
+    "message": "⏹ Stop"
+  },
+  "btnStopSpeech": {
+    "message": "⏹ Stop reading"
+  },
+  "errNoVoice": {
+    "message": "No voice is installed for this language ($LANGUAGE$). You can add one in your system's text-to-speech settings.",
+    "placeholders": {
+      "language": {
+        "content": "$1"
+      }
+    }
+  },
+  "errSpeechUnsupported": {
+    "message": "Read aloud isn't available in this browser."
+  },
   "errNoVideo": {
     "message": "No video detected. Open a YouTube page like youtube.com/watch?v=..."
   },
@@ -201,6 +221,51 @@
   },
   "toastLangSaved": {
     "message": "✓ Summary language saved"
+  },
+  "optSpeechSection": {
+    "message": "Read aloud"
+  },
+  "optAutoPlay": {
+    "message": "Read the summary aloud as soon as it's ready"
+  },
+  "optAutoPlayTldr": {
+    "message": "Only the short summary (TL;DR)"
+  },
+  "optAutoPlayFull": {
+    "message": "The whole summary"
+  },
+  "optVoice": {
+    "message": "Voice"
+  },
+  "optVoiceAuto": {
+    "message": "Automatic (based on the summary language)"
+  },
+  "optVoiceHint": {
+    "message": "Used for summaries in its language; other languages use the system's default voice. You can install more voices in your system's text-to-speech settings."
+  },
+  "optVoiceWindowsHint": {
+    "message": "Windows 11 natural voices (Denise, Aria…) don't appear directly in Firefox: <a href=\"https://github.com/spamoi33/vidigest#natural-voices-on-windows-11\" target=\"_blank\">see how to add them</a>."
+  },
+  "optRate": {
+    "message": "Speed"
+  },
+  "optPitch": {
+    "message": "Pitch"
+  },
+  "optVolume": {
+    "message": "Volume"
+  },
+  "optSpeechTest": {
+    "message": "▶ Test"
+  },
+  "optSpeechReset": {
+    "message": "Reset"
+  },
+  "speechSample": {
+    "message": "Hello! This is how Vidigest will read your summaries."
+  },
+  "toastSpeechSaved": {
+    "message": "✓ Read-aloud settings saved"
   },
   "optNotice": {
     "message": "<strong>Important:</strong> Vidigest has no server. When you click “Summarize”, the video transcript is sent directly to the provider selected above, using your own key. You are responsible for complying with its terms of use and for its billing. For example, the Gemini API terms restrict use for users in the European Economic Area, Switzerland and the United Kingdom to paid services.<br>Your key is stored only in your browser (not synced, not encrypted)."
