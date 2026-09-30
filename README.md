@@ -21,9 +21,7 @@
   <a href="#français">Français</a>
 </p>
 
-<!-- Add a screenshot of the popup here once you have one:
-<p align="center"><img src="docs/screenshot.png" alt="Vidigest popup showing a summary" width="520" /></p>
--->
+<p align="center"><img src="screenshot/exemple1.jpg" alt="Vidigest popup showing the summary of a YouTube video" width="720" /></p>
 
 ## Features
 
